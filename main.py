@@ -50,18 +50,27 @@ def update_discord_message():
         print("API returned 0 members. This might be an error or rate limit. Skipping update.")
         return
 
-    # 2. Define the embed structure
     embed_data = {
-      "title": "ABOUT US",
-      "description": (
-          "Divine Hub is a universe of explosive multiplayer mayhem...\n\n"
-          "The arena is eternal. The controllers are ready. Bombs away!"
-      ),
-      "color": 9371903,
-      "fields": [{"name": "TOTAL MEMBERS:", "value": f"```{total_count}```"}],
-      "image": {"url": IMAGE_URL},
-      "footer": {"text": "© DIVINE HUB TEAM"}
+    "title": "ABOUT US",
+    "description": (
+        ">>> **Dive into a universe of explosive multiplayer mayhem, where every match is an epic saga and every victory is legendary!**\n\n"
+        "**The arena is eternal. Your controllers are charged. It's time to unleash chaos!**\n\n"
+        "We're more than just a server; we're a thriving community of passionate gamers, united by the thrill of competition and the joy of camaraderie. Whether you're a seasoned veteran or a rising star, Divine Hub is your ultimate battleground."
+    ),
+    "color": 0x8E44AD,  # A stylish purple (you can adjust this hex code!)
+    "fields": [
+        {"name": "✨ **OUR LEGION GROWS:**", "value": f"```ini\n[ {total_count} Champions Strong ]\n```", "inline": True},
+        {"name": "🎮 **WHAT WE OFFER:**", "value": "```md\n# Epic Tournaments\n# LFG Channels\n# Friendly Community\n# Exclusive Events\n```", "inline": True}
+    ],
+    "image": {"url": IMAGE_URL}, # This will be your amazing banner! # Optional: Add your server icon for extra flair!
+    "footer": {"text": "© DIVINE HUB TEAM |  Powering Up Your Game!"}
     }
+
+
+
+    
+
+    
     
     payload = {"embeds": [embed_data], "username": "Divine Hub"}
     edit_url = f"{WEBHOOK_URL}/messages/{TARGET_MESSAGE_ID}"
