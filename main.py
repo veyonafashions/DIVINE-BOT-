@@ -7,8 +7,8 @@ import json
 # 1. SETUP: FILL IN YOUR DETAILS HERE
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 WEBHOOK_URL = "https://discord.com/api/webhooks/1430311382775238791/pV42MGjMbXLaBzJv29YX984KNt_QXQfnWdsBoIz7XwRvsw96t-vEQ3AM80BRM4bvdJWk"
-SERVER_ID = "YOUR_SERVER_ID_HERE"  # Paste the Server ID from the Widget page
-IMAGE_URL = "https://i.imgur.com/ag32n3Y.png" # Optional: Replace with your own image URL
+SERVER_ID = "615868918627565568"  # Paste the Server ID from the Widget page
+IMAGE_URL = "https://i.ibb.co/CpnXPyLd/Gemini-Generated-Image-48c7ts48c7ts48c7.png" # Optional: Replace with your own image URL
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # Configuration
