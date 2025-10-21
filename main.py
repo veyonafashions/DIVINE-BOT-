@@ -14,7 +14,7 @@ IMAGE_URL = "https://i.ibb.co/CpnXPyLd/Gemini-Generated-Image-48c7ts48c7ts48c7.p
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # Configuration
-UPDATE_INTERVAL_HOURS = 10
+UPDATE_INTERVAL_MINUTES = 5 # Changed from 10 hours to 5 minutes for better testing
 INVITE_API_URL = f"https://discord.com/api/v9/invites/{INVITE_CODE}?with_counts=true"
 
 # --- The Core Logic Function ---
@@ -25,17 +25,29 @@ def update_discord_message():
     """
     print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Running scheduled update...")
     
+    # --- THIS IS THE FIX ---
+    # We create a header that disguises our script as a web browser.
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+    }
+    
     # 1. Get the total member count from the invite link
     try:
-        response = requests.get(INVITE_API_URL)
+        # We add the 'headers' to the request.
+        response = requests.get(INVITE_API_URL, headers=headers)
         if response.status_code == 200:
             data = response.json()
-            total_count = data.get('guild', {}).get('approximate_member_count', 0)
+            # This is the correct key for the total member count from the API.
+            total_count = data.get('approximate_member_count', 0)
         else:
             print(f"Error fetching invite data: {response.status_code} - {response.text}")
             return # Stop the function if we can't get the count
     except Exception as e:
         print(f"An exception occurred while fetching invite data: {e}")
+        return
+        
+    if total_count == 0:
+        print("API returned 0 members. This might be an error or rate limit. Skipping update.")
         return
 
     # 2. Define the embed structure
@@ -68,24 +80,20 @@ def update_discord_message():
 # --- Flask and Scheduler Setup ---
 app = Flask(__name__)
 
-# This route is just to confirm the server is alive if you visit its URL.
 @app.route('/')
 def index():
     return "Flask server with internal scheduler is running. The update job runs in the background."
 
 # Configure and start the scheduler
 scheduler = BackgroundScheduler(daemon=True)
-scheduler.add_job(update_discord_message, 'interval', hours=UPDATE_INTERVAL_HOURS)
+scheduler.add_job(update_discord_message, 'interval', minutes=UPDATE_INTERVAL_MINUTES)
 scheduler.start()
 
-# Run the update once on startup
 print("Performing initial update on startup...")
 update_discord_message()
 
-print(f"Scheduler started. The message will be updated every {UPDATE_INTERVAL_HOURS} hours.")
+print(f"Scheduler started. The message will be updated every {UPDATE_INTERVAL_MINUTES} minutes.")
 print("The Flask web server is now running.")
 
 if __name__ == '__main__':
-    # For production, use 'gunicorn app:app'
-    # For simple hosting like Replit, this is fine.
     app.run(host='0.0.0.0', port=8080)
