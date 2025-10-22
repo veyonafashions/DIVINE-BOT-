@@ -59,7 +59,7 @@ def update_discord_message():
     ),
     "color": 0x8E44AD,  # A stylish purple (you can adjust this hex code!)
     "fields": [
-        {"name": "✨ **OUR LEGION GROWS:**", "value": f"```ini\n[ {total_count} Champions Strong ]\n```", "inline": True},
+        {"name": "✨ **OUR LEGION GROWS:**", "value": f"```ini\n {total_count} MEMBERS \n```", "inline": True},
         {"name": "🎮 **WHAT WE OFFER:**", "value": "```md\n# Epic Tournaments\n# LFG Channels\n# Friendly Community\n# Exclusive Events\n```", "inline": True}
     ],
     "image": {"url": IMAGE_URL}, # This will be your amazing banner! # Optional: Add your server icon for extra flair!
